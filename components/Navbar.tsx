@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -13,12 +15,18 @@ const Navbar: React.FC = () => {
   }, []);
 
   const navLinks = [
-    { name: 'Inicio', href: '#home', active: true },
-    { name: 'Información', href: '#info' },
-    { name: 'Equipos', href: '#equipos' },
-    { name: 'Bracket', href: '#bracket' },
-    { name: 'Contacto', href: '#contacto' },
+    { name: 'Inicio', path: '/' },
+    { name: 'Información', path: '/informacion' },
+    { name: 'Equipos', path: '/equipos' },
+    { name: 'Bracket', path: '/bracket' },
+    { name: 'Contacto', path: '/contacto' },
   ];
+
+  // Helper to check active state
+  const isActive = (path: string) => {
+    if (path === '/' && location.pathname !== '/') return false;
+    return location.pathname.startsWith(path);
+  };
 
   return (
     <nav 
@@ -30,7 +38,7 @@ const Navbar: React.FC = () => {
     >
       {/* LEFT: LOGO */}
       <div className="h-full bg-black pl-6 pr-8 flex items-center relative z-20 min-w-fit">
-        <a className="group flex items-center gap-3">
+        <Link to="/" className="group flex items-center gap-3">
           {/* Logo Imagen (Reemplaza al icono) */}
           <img 
             src="https://i.postimg.cc/9QxV1Tt9/Simbioxis.png" 
@@ -47,7 +55,7 @@ const Navbar: React.FC = () => {
               U.N.D.I. CUP
             </span>
           </div>
-        </a>
+        </Link>
         
         {/* Separator Line */}
         <div className="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 w-[1px] h-8 bg-gray-700 transform rotate-12"></div>
@@ -57,23 +65,23 @@ const Navbar: React.FC = () => {
       <div className="hidden lg:flex h-full flex-1 items-center justify-start pl-4 overflow-hidden">
         {navLinks.map((link, index) => (
           <div key={link.name} className="h-full flex items-center relative group">
-            <a 
-              href={link.href}
+            <Link 
+              to={link.path}
               className={`
                 h-full flex items-center px-4 xl:px-6
                 font-anton text-lg tracking-wider uppercase italic whitespace-nowrap pr-1
                 transition-colors duration-200
-                ${link.active ? 'text-rivals-red' : 'text-gray-300 hover:text-white'}
+                ${isActive(link.path) ? 'text-rivals-red' : 'text-gray-300 hover:text-white'}
               `}
             >
               {link.name}
-            </a>
+            </Link>
             
             {/* Hover/Active Effect: Red bottom bar with skew */}
             <div className={`
               absolute bottom-0 left-0 w-full h-[4px] bg-rivals-red transform -skew-x-12 origin-bottom
               transition-transform duration-200
-              ${link.active ? 'scale-y-100' : 'scale-y-0 group-hover:scale-y-100'}
+              ${isActive(link.path) ? 'scale-y-100' : 'scale-y-0 group-hover:scale-y-100'}
             `}></div>
 
             {/* Divider */}
@@ -89,7 +97,9 @@ const Navbar: React.FC = () => {
         
         {/* GIANT RED BUTTON (Parallelogram Style) */}
         <a 
-          href="#register"
+          href="https://discord.gg/HdBZGKHZ7J" // Direct to Discord or Register Form
+          target="_blank"
+          rel="noopener noreferrer"
           className="relative h-full bg-rivals-red flex items-center px-8 md:px-10 group overflow-hidden min-w-[180px] justify-center text-center transition-colors duration-300 hover:bg-white"
           style={{ clipPath: "polygon(20px 0, 100% 0, 100% 100%, 0% 100%)" }}
         >
@@ -115,14 +125,14 @@ const Navbar: React.FC = () => {
       <div className={`lg:hidden fixed top-[70px] left-0 w-full bg-black/95 border-b-4 border-rivals-red backdrop-blur-xl transition-all duration-300 overflow-hidden ${isMobileMenuOpen ? 'max-h-screen py-8' : 'max-h-0 py-0'}`}>
         <div className="flex flex-col items-center gap-6">
           {navLinks.map((link) => (
-            <a 
+            <Link 
               key={link.name} 
-              href={link.href}
-              className="font-anton text-2xl uppercase italic text-white hover:text-rivals-red tracking-widest pr-1"
+              to={link.path}
+              className={`font-anton text-2xl uppercase italic tracking-widest pr-1 ${isActive(link.path) ? 'text-rivals-red' : 'text-white hover:text-rivals-red'}`}
               onClick={() => setIsMobileMenuOpen(false)}
             >
               {link.name}
-            </a>
+            </Link>
           ))}
         </div>
       </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Button from './Button';
 
 const Hero: React.FC = () => {
@@ -61,12 +62,17 @@ const Hero: React.FC = () => {
 
         {/* Botones de Acción */}
         <div className="flex flex-col md:flex-row gap-8 w-full md:w-auto items-center">
-            {/* Botón Central: Ver Reglas (Scroll interno si existiera, o link a documento) */}
-            <Button variant="primary" icon="fas fa-scroll" href="#info">
-                Ver Reglas
-            </Button>
+            {/* Botón Central: Ver Reglas (Usamos Link wrapper manual para routing interno) */}
+            <Link to="/informacion">
+              <div className="relative px-10 py-4 font-anton text-lg tracking-wider uppercase transform -skew-x-12 transition-all duration-300 group inline-flex items-center justify-center gap-2 cursor-pointer active:scale-95 border-0 text-decoration-none bg-rivals-red text-white hover:bg-white hover:text-rivals-red hover:shadow-[0_0_20px_rgba(230,36,41,0.6)]">
+                 <div className="transform skew-x-12 flex items-center gap-2 italic pr-1">
+                    <i className="fas fa-scroll text-lg"></i>
+                    <span>Ver Reglas</span>
+                 </div>
+              </div>
+            </Link>
             
-            {/* Botón Discord: Enlace Externo */}
+            {/* Botón Discord: Enlace Externo (Usa el componente Button existente que soporta href) */}
             <Button 
                 variant="outline" 
                 icon="fab fa-discord" 

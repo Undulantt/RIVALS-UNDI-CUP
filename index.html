@@ -5,18 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SIMBIOXIS - Rivals Tournament</title>
     
-    <!-- IMPORTANTE: Fuentes de Google Fonts (Orbitron y Montserrat) -->
+    <!-- Google Fonts: Orbitron, Montserrat, Anton -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Orbitron:wght@500;700;900&family=Anton&display=swap" rel="stylesheet">
     
-    <!-- FontAwesome para Iconos -->
+    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- Tailwind CSS (Mantenemos CDN por simplicidad en la migración, aunque en pro se recomienda instalación npm) -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Configuración personalizada de Tailwind -->
+    <!-- Tailwind Config -->
     <script>
       tailwind.config = {
         theme: {
@@ -68,25 +68,30 @@
         background: #E62429;
         color: white;
       }
-      .text-slant {
-        font-style: italic;
-      }
     </style>
-  <script type="importmap">
+
+    <!-- 
+      FIX CRÍTICO: Import Map Estandarizado 
+      Usamos React 18.2.0 en todas partes y vinculamos dependencias explícitamente.
+    -->
+    <script type="importmap">
 {
   "imports": {
+    "react": "https://esm.sh/react@18.2.0",
+    "react/": "https://esm.sh/react@18.2.0/",
+    "react-dom": "https://esm.sh/react-dom@18.2.0?deps=react@18.2.0",
+    "react-dom/client": "https://esm.sh/react-dom@18.2.0/client?deps=react@18.2.0",
+    "react-router-dom": "https://esm.sh/react-router-dom@6.22.3?deps=react@18.2.0,react-dom@18.2.0",
+    "@remix-run/router": "https://esm.sh/@remix-run/router@1.15.3",
     "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
-    "react/": "https://esm.sh/react@^19.2.4/",
-    "react": "https://esm.sh/react@^19.2.4",
     "vite": "https://esm.sh/vite@^7.3.1",
     "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.4"
   }
 }
 </script>
-</head>
+  </head>
   <body>
     <div id="root"></div>
-    <!-- Vite Entry Point -->
     <script type="module" src="/index.tsx"></script>
   </body>
 </html>
