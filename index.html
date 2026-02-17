@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SIMBIOXIS</title>
+    <title>SIMBIOXIS - Rivals Tournament</title>
     
     <!-- IMPORTANTE: Fuentes de Google Fonts (Orbitron y Montserrat) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,22 +13,22 @@
     <!-- FontAwesome para Iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- Tailwind CSS (CDN para prototipado rápido) -->
+    <!-- Tailwind CSS (Mantenemos CDN por simplicidad en la migración, aunque en pro se recomienda instalación npm) -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Configuración personalizada de Tailwind para la paleta de colores -->
+    <!-- Configuración personalizada de Tailwind -->
     <script>
       tailwind.config = {
         theme: {
           extend: {
             colors: {
               rivals: {
-                bg: '#111111', // Fondo Oscuro
-                black: '#050505', // Negro puro para navbar
-                red: '#E62429', // NUEVO COLOR PRIMARIO (Rojo)
-                white: '#FFFFFF', // Blanco puro
-                silver: '#E0E0E0', // Gris Plata
-                darkRed: '#4a0a0c', // Rojo muy oscuro para degradados
+                bg: '#111111', 
+                black: '#050505', 
+                red: '#E62429', 
+                white: '#FFFFFF', 
+                silver: '#E0E0E0', 
+                darkRed: '#4a0a0c', 
                 glass: 'rgba(255, 255, 255, 0.05)',
                 glassBorder: 'rgba(255, 255, 255, 0.1)'
               }
@@ -36,7 +36,7 @@
             fontFamily: {
               orbitron: ['Orbitron', 'sans-serif'],
               montserrat: ['Montserrat', 'sans-serif'],
-              anton: ['Anton', 'sans-serif'], // Fuente extra para títulos condensados
+              anton: ['Anton', 'sans-serif'],
             },
             boxShadow: {
               'neon-red': '0 0 10px rgba(230, 36, 41, 0.5), 0 0 20px rgba(230, 36, 41, 0.3)',
@@ -47,7 +47,6 @@
     </script>
     
     <style>
-      /* Estilos base para scrollbar y selección */
       body {
         background-color: #111111;
         color: white;
@@ -69,8 +68,6 @@
         background: #E62429;
         color: white;
       }
-      
-      /* Utilitario para textos con slant */
       .text-slant {
         font-style: italic;
       }
@@ -78,14 +75,18 @@
   <script type="importmap">
 {
   "imports": {
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
     "react/": "https://esm.sh/react@^19.2.4/",
     "react": "https://esm.sh/react@^19.2.4",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.4/"
+    "vite": "https://esm.sh/vite@^7.3.1",
+    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.4"
   }
 }
 </script>
 </head>
   <body>
     <div id="root"></div>
+    <!-- Vite Entry Point -->
+    <script type="module" src="/index.tsx"></script>
   </body>
 </html>
