@@ -109,7 +109,7 @@ const InformacionPage: React.FC = () => {
         <div className="text-center animate-fade-in-up mb-16">
           {/* Main Title at Top */}
           <h2 className="text-6xl md:text-8xl font-anton uppercase italic text-white leading-none mb-6">
-            INFO <span className="text-transparent bg-clip-text bg-gradient-to-r from-rivals-red to-white pb-4 pr-5">HUB</span>
+            INFORM<span className="text-transparent bg-clip-text bg-gradient-to-r from-rivals-red to-white pb-4 pr-5">ACIÓN</span>
           </h2>
           <div className="w-full max-w-md h-1 bg-rivals-red mx-auto mb-16 shadow-neon-red transform -skew-x-12"></div>
 
