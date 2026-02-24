@@ -2,267 +2,304 @@ import React, { useState } from 'react';
 import Button from '../components/Button';
 
 // ==========================================
-// DATA: STREAMERS (MOCK DATA)
+// DATA: TALENT ROSTER
 // ==========================================
-const streamers = [
+interface Caster {
+  id: string;
+  name: string;
+  shortName: string;
+  role: string;
+  avatar: string;
+  youtubeShortId: string; // ID del YouTube Short (parte después de /shorts/)
+  bio: string;
+  socials: {
+    twitch?: string;
+    instagram?: string;
+    tiktok?: string;
+    twitter?: string;
+    youtube?: string;
+  };
+}
+
+const casters: Caster[] = [
   {
     id: '1',
-    name: 'H. SANTANA',
-    channel: 'hsantana', // Canal de prueba solicitado
-    role: 'HOST PRINCIPAL // BLOQUE A',
-    image: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Felix&backgroundColor=b6e3f4',
-    bio: 'Veterano de los shooters tácticos y la voz oficial de SymbioSix. Especialista en análisis macro y play-by-play de alta intensidad.',
-    tags: ['CASTER', 'ANALISTA', 'HYPE']
+    name: 'Nichays',
+    shortName: 'Nichay',
+    role: 'CASTER // HOST',
+    avatar: 'https://static-cdn.jtvnw.net/jtv_user_pictures/3a77f817-7eb9-4cd7-8790-9d92afeaa24a-profile_image-70x70.png',
+    youtubeShortId: 'dQw4w9WgXcQ', // Reemplazar con el ID real del Short
+    bio: 'Soy una Demonia que se aburrio del inframundo y dejo el caos para venir a jugar videojuegos. Traviesa, juguetona, loquita, enojona, intensa y divertida, mezcla la picardía y energía para convertir cada partida en un espectáculo diabólicamente encantador.',
+    socials: {
+      twitch: 'Nichays',
+      instagram: 'nichaysvt',
+      tiktok: 'nichayvt',
+    }
   },
   {
     id: '2',
-    name: 'VALKYRIE_TV',
-    channel: 'marvelrivals', // Placeholder (Canal oficial del juego como fallback)
-    role: 'CO-CASTER // BLOQUE B',
-    image: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Aneka&backgroundColor=ffdfbf',
-    bio: 'Ex-jugadora profesional de Overwatch. Aporta una visión técnica profunda sobre composiciones de equipo y sinergias de héroes.',
-    tags: ['COLOR CASTER', 'ESTRATEGA']
+    name: 'Wings667',
+    shortName: 'Wings',
+    role: 'CASTER // AFILIADO OFICIAL',
+    avatar: 'https://static-cdn.jtvnw.net/jtv_user_pictures/e08724a9-76dc-4564-8116-93a21ab7d88f-profile_image-70x70.png',
+    youtubeShortId: 'dQw4w9WgXcQ', // Reemplazar con el ID real del Short
+    bio: 'Amante de los Videojuegos y obsesionado con Marvel Rivals! :D',
+    socials: {
+      twitch: 'Wings667',
+      instagram: 'elwings667',
+      tiktok: 'wings667_',
+    }
   },
   {
     id: '3',
-    name: 'NEXUS_PRIME',
-    channel: 'twitch', // Placeholder
-    role: 'OBSERVER // BLOQUE C',
-    image: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Alexander&backgroundColor=c0aede',
-    bio: 'El ojo que todo lo ve. Responsable de la cámara in-game, asegurando que no te pierdas ninguna ultimate ni jugada clave.',
-    tags: ['OBSERVER', 'CAMERAMAN']
+    name: 'JazminVT',
+    shortName: 'JazminVT',
+    role: 'CASTER // HOST',
+    avatar: 'https://static-cdn.jtvnw.net/jtv_user_pictures/7f9e1ebb-65d3-4745-860a-b2c6b9b85b55-profile_image-70x70.png',
+    youtubeShortId: 'dQw4w9WgXcQ', // Reemplazar con el ID real del Short
+    bio: '💀 Vtuber con esencia, papeadora y decadente💜 Twitch Partner👻 Amodoro mi fantasmitas🌙 Creadora de contenido 🖌️Artista: @YukimiiArt & Rigger: @Yi_Star_',
+    socials: {
+      twitch: 'JazminVT',
+      instagram: 'jazminvtuberr',
+      tiktok: 'jazminvtuber',
+      twitter: 'jazminvtuber',
+    }
   },
   {
     id: '4',
-    name: 'SYMBIO_OFFICIAL',
-    channel: 'lirik', // Placeholder random popular
-    role: 'RED ZONE // MULTI-STREAM',
-    image: 'https://i.postimg.cc/9QxV1Tt9/Simbioxis.png',
-    bio: 'Canal oficial de la organización. Transmisión tipo "Red Zone" saltando entre las partidas más interesantes del momento.',
-    tags: ['HIGHLIGHTS', 'ENTREVISTAS']
+    name: 'SYMBIO',
+    shortName: 'SYMBIO',
+    role: 'CANAL OFICIAL // MULTI-STREAM',
+    avatar: 'https://i.postimg.cc/9QxV1Tt9/Simbioxis.png',
+    youtubeShortId: 'dQw4w9WgXcQ', // Reemplazar con el ID real del Short
+    bio: 'Canal oficial de la organización. Transmisión tipo Red Zone saltando entre las partidas más interesantes del momento.',
+    socials: {
+      twitch: 'symbiosix',
+      instagram: 'symbiosix',
+      tiktok: 'symbiosix',
+      youtube: 'symbiosix',
+    }
   }
 ];
 
-const ContactoPage: React.FC = () => {
-  const [activeStreamer, setActiveStreamer] = useState(streamers[0]);
+// ==========================================
+// COMPONENT
+// ==========================================
 
-  // Construcción segura de la URL de Twitch
-  // Se agregan multiples 'parent' para soportar tanto producción como desarrollo local
-  const getTwitchEmbedUrl = (channel: string) => {
-    const hostname = window.location.hostname;
-    // Nota: Twitch requiere SSL (https) para embeds en la mayoría de los casos modernos, 
-    // o estar en localhost.
-    return `https://player.twitch.tv/?channel=${channel}&parent=undicup.netlify.app&parent=${hostname}&parent=localhost&parent=127.0.0.1&muted=false`;
+const ContactoPage: React.FC = () => {
+  const [activeCaster, setActiveCaster] = useState<Caster>(casters[0]);
+
+  const socialIcons: Record<string, { icon: string; color: string; base: string }> = {
+    twitch:    { icon: 'fab fa-twitch',    color: 'hover:text-[#9146FF]', base: 'https://twitch.tv/' },
+    instagram: { icon: 'fab fa-instagram', color: 'hover:text-[#E1306C]', base: 'https://instagram.com/' },
+    tiktok:    { icon: 'fab fa-tiktok',    color: 'hover:text-white',     base: 'https://tiktok.com/@' },
+    twitter:   { icon: 'fab fa-twitter',   color: 'hover:text-[#1DA1F2]', base: 'https://twitter.com/' },
+    youtube:   { icon: 'fab fa-youtube',   color: 'hover:text-[#FF0000]', base: 'https://youtube.com/@' },
   };
 
   return (
-    <div className="min-h-screen bg-rivals-bg pt-32 pb-20 px-4 md:px-6 relative overflow-x-hidden">
-      
-      {/* Background Decor */}
-      <div className="fixed top-0 left-0 w-[500px] h-[500px] bg-rivals-red/5 rounded-full blur-[120px] pointer-events-none"></div>
-      
-      <div className="max-w-7xl mx-auto relative z-10 flex flex-col gap-16">
+    <div className="min-h-screen bg-rivals-bg pt-32 pb-20 relative overflow-x-hidden">
 
-        {/* 
-          ========================================
-          SECCIÓN 1: INTRO & DINÁMICA
-          ========================================
-        */}
+      {/* Background Image — estilo Hero */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <img
+          src="https://i.postimg.cc/J4NjxWwz/SEGURIDAD_DEL_MUSEO.png"
+          alt="Background"
+          className="w-full h-full object-cover object-center scale-150 transition-transform duration-1000"
+        />
+        {/* Overlay gradiente oscuro igual que Hero */}
+        <div className="absolute inset-0 bg-gradient-to-t from-rivals-bg via-black/85 to-rivals-darkRed/40"></div>
+        {/* Carbon fibre overlay */}
+        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20"></div>
+        {/* Tinte rojo lateral */}
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-rivals-red/10 to-transparent transform -skew-x-12 mix-blend-screen"></div>
+      </div>
+      <div className="fixed top-0 right-0 w-[600px] h-[600px] bg-rivals-red/5 rounded-full blur-[150px] pointer-events-none z-0"></div>
+      <div className="fixed bottom-0 left-0 w-[400px] h-[400px] bg-blue-900/10 rounded-full blur-[100px] pointer-events-none z-0"></div>
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10 flex flex-col gap-16">
+
+        {/* ======================================== HEADER ======================================== */}
         <div className="text-center animate-fade-in-up">
-            <div className="inline-flex items-center gap-2 px-3 py-1 border border-rivals-red/50 rounded-full bg-rivals-red/10 mb-4">
-                <div className="w-2 h-2 bg-rivals-red rounded-full animate-pulse"></div>
-                <span className="text-rivals-red font-orbitron text-xs font-bold tracking-widest">LIVE SIGNAL</span>
-            </div>
-            <h2 className="text-5xl md:text-7xl font-anton uppercase italic text-white mb-6">
-                OFFICIAL <span className="text-transparent bg-clip-text bg-gradient-to-r from-rivals-red to-white">BROADCAST</span>
-            </h2>
-            <div className="max-w-3xl mx-auto bg-zinc-900/80 border-l-4 border-rivals-red p-6 text-left md:text-center shadow-lg backdrop-blur-sm">
-                <p className="font-montserrat text-gray-300 text-lg leading-relaxed">
-                    La <span className="text-white font-bold">U.N.D.I. CUP</span> se transmite en 4 canales simultáneos. 
-                    Cada streamer cubre un bloque diferente del bracket o una perspectiva única. 
-                    <br className="hidden md:block" />
-                    <span className="text-rivals-red font-bold mt-2 block uppercase tracking-wide">¡Tú eliges qué partida ver!</span>
-                </p>
-            </div>
+          <h1 className="text-6xl md:text-8xl font-anton uppercase italic text-white leading-none mb-6">
+            TALENT <span className="text-transparent bg-clip-text bg-gradient-to-r from-rivals-red to-white pb-4 pr-5">ROSTER</span>
+          </h1>
+          <div className="w-full max-w-md h-1 bg-rivals-red mx-auto mb-6 shadow-neon-red transform -skew-x-12"></div>
+          <p className="font-montserrat text-gray-400 text-sm tracking-[0.3em] uppercase font-bold">
+            CONOCE A LAS VOCES DEL TORNEO
+          </p>
         </div>
 
-        {/* 
-          ========================================
-          SECCIÓN 2: MULTI-STREAM PLAYER
-          ========================================
-        */}
-        <div className="w-full animate-fade-in-up delay-100">
-            
-            {/* --- MAIN PLAYER WRAPPER --- */}
-            <div className="relative w-full aspect-video bg-black border-2 border-zinc-800 shadow-[0_0_50px_rgba(0,0,0,0.5)] overflow-hidden group mb-8">
-                {/* Decorative Borders (Corner HUD) */}
-                <div className="absolute top-0 left-0 w-8 h-8 border-t-4 border-l-4 border-rivals-red z-20"></div>
-                <div className="absolute top-0 right-0 w-8 h-8 border-t-4 border-r-4 border-rivals-red z-20"></div>
-                <div className="absolute bottom-0 left-0 w-8 h-8 border-b-4 border-l-4 border-rivals-red z-20"></div>
-                <div className="absolute bottom-0 right-0 w-8 h-8 border-b-4 border-r-4 border-rivals-red z-20"></div>
+        {/* ======================================== MAIN PANEL ======================================== */}
+        <div className="animate-fade-in-up">
 
-                {/* Twitch Iframe */}
-                <iframe
-                    src={getTwitchEmbedUrl(activeStreamer.channel)}
-                    title={`Twitch Stream ${activeStreamer.name}`}
-                    className="w-full h-full relative z-10"
+          {/* VIDEO + INFO */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center mb-12">
+
+            {/* YouTube Short embed — proporción 9:16 */}
+            <div className="flex justify-center">
+              <div className="relative w-full max-w-[320px] bg-black border-2 border-rivals-red/60 overflow-hidden shadow-[0_0_40px_rgba(230,36,41,0.2)]">
+                {/* Esquinas HUD */}
+                <div className="absolute top-0 left-0 w-5 h-5 border-t-2 border-l-2 border-rivals-red z-20"></div>
+                <div className="absolute top-0 right-0 w-5 h-5 border-t-2 border-r-2 border-rivals-red z-20"></div>
+                <div className="absolute bottom-0 left-0 w-5 h-5 border-b-2 border-l-2 border-rivals-red z-20"></div>
+                <div className="absolute bottom-0 right-0 w-5 h-5 border-b-2 border-r-2 border-rivals-red z-20"></div>
+
+                {/* REC indicator */}
+                <div className="absolute top-3 left-3 z-20 flex items-center gap-1.5 bg-black/60 px-2 py-1 backdrop-blur-sm">
+                  <div className="w-2 h-2 bg-rivals-red rounded-full animate-pulse"></div>
+                  <span className="font-orbitron text-white text-[9px] font-bold tracking-widest">REC</span>
+                </div>
+
+                {/* Aspect ratio 9:16 */}
+                <div className="relative w-full" style={{ paddingBottom: '177.78%' }}>
+                  <iframe
+                    key={activeCaster.id}
+                    src={`https://www.youtube.com/embed/${activeCaster.youtubeShortId}?autoplay=0&rel=0&modestbranding=1`}
+                    title={`${activeCaster.name} - YouTube Short`}
+                    className="absolute inset-0 w-full h-full"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
-                    scrolling="no"
-                ></iframe>
-                
-                {/* Loading/Offline Placeholder (Behind iframe) */}
-                <div className="absolute inset-0 flex items-center justify-center bg-zinc-900 z-0">
-                    <span className="font-orbitron text-gray-600 animate-pulse">CONNECTING TO FEED...</span>
+                  ></iframe>
                 </div>
+              </div>
             </div>
 
-            {/* --- STREAMER INFO & SELECTOR --- */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                
-                {/* INFO PANEL (Left - 4 Cols) */}
-                <div className="lg:col-span-4 flex flex-col justify-between bg-zinc-900/50 p-6 border border-gray-800 backdrop-blur-md h-full min-h-[250px]">
-                    <div>
-                        <div className="flex items-center gap-3 mb-2">
-                             <h3 className="font-anton text-3xl text-white italic uppercase tracking-wide">
-                                {activeStreamer.name}
-                             </h3>
-                             <a 
-                               href={`https://twitch.tv/${activeStreamer.channel}`} 
-                               target="_blank" 
-                               rel="noreferrer"
-                               className="text-gray-500 hover:text-[#9146FF] transition-colors"
-                             >
-                                <i className="fab fa-twitch text-xl"></i>
-                             </a>
-                        </div>
-                        <span className="font-orbitron text-rivals-red text-xs font-bold tracking-[0.2em] uppercase mb-4 block">
-                            {activeStreamer.role}
-                        </span>
-                        
-                        <div className="w-12 h-1 bg-gray-700 mb-4"></div>
-                        
-                        <p className="font-montserrat text-gray-400 text-sm leading-relaxed mb-6">
-                            {activeStreamer.bio}
-                        </p>
-                    </div>
+            {/* INFO DEL CASTER */}
+            <div className="flex flex-col gap-6">
 
-                    <div className="flex flex-wrap gap-2">
-                        {activeStreamer.tags.map(tag => (
-                            <span key={tag} className="px-2 py-1 bg-black border border-gray-700 text-gray-300 text-[10px] font-orbitron uppercase">
-                                {tag}
-                            </span>
-                        ))}
-                    </div>
-                </div>
+              {/* Línea decorativa roja */}
+              <div className="w-12 h-1 bg-rivals-red shadow-neon-red"></div>
 
-                {/* SELECTOR GRID (Right - 8 Cols) */}
-                <div className="lg:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-4">
-                    {streamers.map((streamer) => {
-                        const isActive = activeStreamer.id === streamer.id;
-                        return (
-                            <button
-                                key={streamer.id}
-                                onClick={() => setActiveStreamer(streamer)}
-                                className={`
-                                    relative group h-full min-h-[140px] flex flex-col items-center justify-end p-4 border transition-all duration-300 overflow-hidden
-                                    ${isActive 
-                                        ? 'bg-rivals-red/10 border-rivals-red shadow-[0_0_15px_rgba(230,36,41,0.4)] scale-105 z-10' 
-                                        : 'bg-zinc-900 border-gray-800 hover:border-gray-500 hover:bg-zinc-800 opacity-70 hover:opacity-100'}
-                                `}
-                            >
-                                {/* Background Image/Avatar effect */}
-                                <div className="absolute inset-0 opacity-20 group-hover:opacity-40 transition-opacity">
-                                    <img src={streamer.image} alt={streamer.name} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
-                                </div>
-                                
-                                {/* Status Dot */}
-                                <div className={`absolute top-3 right-3 w-2 h-2 rounded-full ${isActive ? 'bg-rivals-red shadow-[0_0_5px_#E62429]' : 'bg-gray-600'}`}></div>
+              {/* Nombre */}
+              <div>
+                <h2 className="font-anton text-5xl md:text-6xl text-white uppercase italic leading-none mb-2">
+                  {activeCaster.name}
+                </h2>
+                <span className="font-orbitron text-rivals-red text-sm font-bold tracking-[0.25em] uppercase">
+                  {activeCaster.role}
+                </span>
+              </div>
 
-                                {/* Text Content */}
-                                <div className="relative z-10 text-center">
-                                    <h4 className={`font-anton text-lg italic uppercase leading-none ${isActive ? 'text-white' : 'text-gray-400 group-hover:text-white'}`}>
-                                        {streamer.name}
-                                    </h4>
-                                    <span className="text-[9px] font-orbitron text-gray-500 uppercase tracking-wider block mt-1">
-                                        {streamer.channel}
-                                    </span>
-                                </div>
-                                
-                                {/* Active Bottom Bar */}
-                                {isActive && (
-                                    <div className="absolute bottom-0 left-0 w-full h-1 bg-rivals-red animate-pulse"></div>
-                                )}
-                            </button>
-                        );
-                    })}
-                </div>
+              {/* Bio */}
+              <div className="border-l-4 border-rivals-red bg-zinc-900/50 px-5 py-4 backdrop-blur-sm">
+                <p className="font-montserrat text-gray-300 text-base leading-relaxed">
+                  {activeCaster.bio}
+                </p>
+              </div>
 
+              {/* Redes sociales */}
+              <div className="flex items-center gap-4">
+                {Object.entries(activeCaster.socials).map(([platform, handle]) => {
+                  const social = socialIcons[platform];
+                  if (!social || !handle) return null;
+                  return (
+                    <a
+                      key={platform}
+                      href={`${social.base}${handle}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`w-11 h-11 rounded-full bg-zinc-800 border border-gray-700 flex items-center justify-center text-gray-400 ${social.color} hover:border-gray-500 hover:scale-110 transition-all duration-200`}
+                    >
+                      <i className={`${social.icon} text-lg`}></i>
+                    </a>
+                  );
+                })}
+              </div>
             </div>
+          </div>
+
+          {/* ---- SELECTOR DE CASTERS ---- */}
+          <div className="flex justify-center gap-4 flex-wrap">
+            {casters.map((caster) => {
+              const isActive = activeCaster.id === caster.id;
+              return (
+                <button
+                  key={caster.id}
+                  onClick={() => setActiveCaster(caster)}
+                  className={`
+                    relative flex flex-col items-center gap-2 p-1 transition-all duration-300 group
+                    ${isActive ? 'scale-110' : 'opacity-60 hover:opacity-100 hover:scale-105'}
+                  `}
+                >
+                  {/* Avatar */}
+                  <div className={`
+                    w-16 h-16 overflow-hidden border-2 transition-colors duration-300
+                    ${isActive ? 'border-rivals-red shadow-neon-red' : 'border-gray-700 group-hover:border-gray-500'}
+                  `}>
+                    <img
+                      src={caster.avatar}
+                      alt={caster.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+
+                  {/* Nombre corto */}
+                  <span className={`font-orbitron text-[10px] uppercase tracking-wider transition-colors ${isActive ? 'text-rivals-red' : 'text-gray-500 group-hover:text-gray-300'}`}>
+                    {caster.shortName}
+                  </span>
+
+                  {/* Active indicator */}
+                  {isActive && (
+                    <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-4 h-0.5 bg-rivals-red shadow-neon-red"></div>
+                  )}
+                </button>
+              );
+            })}
+          </div>
         </div>
 
-        {/* 
-          ========================================
-          SECCIÓN 3: CONTACTO ADMINISTRATIVO (Original)
-          ========================================
-        */}
-        <div className="border-t border-gray-800 pt-16 mt-8">
-            <div className="text-center mb-12">
-                <h2 className="text-4xl font-anton uppercase italic text-white">
-                    CONTACT <span className="text-rivals-red">H.Q.</span>
-                </h2>
-                <p className="font-orbitron text-gray-500 mt-2 tracking-widest text-sm">SYMBIOSIX COMMAND CENTER</p>
+        {/* ======================================== CONTACT HQ ======================================== */}
+        <div className="border-t border-gray-800 pt-16">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-anton uppercase italic text-white">
+              CONTACT <span className="text-rivals-red">H.Q.</span>
+            </h2>
+            <p className="font-orbitron text-gray-500 mt-2 tracking-widest text-sm">SYMBIOSIX COMMAND CENTER</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+
+            {/* Discord */}
+            <div className="group bg-zinc-900/80 border border-gray-800 p-8 hover:border-[#5865F2] transition-all duration-300 relative overflow-hidden backdrop-blur-sm">
+              <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                <i className="fab fa-discord text-9xl text-white transform rotate-12"></i>
+              </div>
+              <div className="relative z-10">
+                <i className="fab fa-discord text-4xl text-[#5865F2] mb-4"></i>
+                <h3 className="font-anton text-2xl text-white italic mb-2">DISCORD COMUNIDAD</h3>
+                <p className="font-montserrat text-gray-400 text-sm mb-6">
+                  Únete al servidor oficial. Canal principal para soporte técnico, dudas de reglamento y organización de scrims.
+                </p>
+                <Button
+                  href="https://discord.gg/Qumbascbvb"
+                  target="_blank"
+                  className="!bg-[#5865F2] hover:!bg-white hover:!text-[#5865F2] w-full md:w-auto"
+                >
+                  UNIRSE AHORA
+                </Button>
+              </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                {/* Discord Card */}
-                <div className="group bg-zinc-900 border border-gray-800 p-8 hover:border-[#5865F2] transition-all duration-300 relative overflow-hidden">
-                    <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                        <i className="fab fa-discord text-9xl text-white transform rotate-12"></i>
-                    </div>
-                    
-                    <div className="relative z-10">
-                        <i className="fab fa-discord text-4xl text-[#5865F2] mb-4"></i>
-                        <h3 className="font-anton text-2xl text-white italic mb-2">DISCORD COMUNIDAD</h3>
-                        <p className="font-montserrat text-gray-400 text-sm mb-6">
-                            Únete al servidor oficial. Canal principal para soporte técnico, dudas de reglamento y organización de scrims.
-                        </p>
-                        <Button 
-                            href="https://discord.gg/HdBZGKHZ7J" 
-                            target="_blank"
-                            className="!bg-[#5865F2] hover:!bg-white hover:!text-[#5865F2] w-full md:w-auto"
-                        >
-                            UNIRSE AHORA
-                        </Button>
-                    </div>
+            {/* Email */}
+            <div className="group bg-zinc-900/80 border border-gray-800 p-8 hover:border-rivals-red transition-all duration-300 relative overflow-hidden backdrop-blur-sm">
+              <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                <i className="fas fa-envelope text-9xl text-white transform -rotate-12"></i>
+              </div>
+              <div className="relative z-10">
+                <i className="fas fa-envelope text-4xl text-rivals-red mb-4"></i>
+                <h3 className="font-anton text-2xl text-white italic mb-2">CONTACTO STAFF</h3>
+                <p className="font-montserrat text-gray-400 text-sm mb-6">
+                  Para consultas comerciales, patrocinios o reportes graves de conducta. Respondemos en 24-48hs.
+                </p>
+                <div className="bg-black/50 border border-gray-700 p-3 text-center">
+                  <span className="font-mono text-white text-sm">symbiosoda@gmail.com</span>
                 </div>
-
-                {/* Email Card */}
-                <div className="group bg-zinc-900 border border-gray-800 p-8 hover:border-rivals-red transition-all duration-300 relative overflow-hidden">
-                    <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                        <i className="fas fa-envelope text-9xl text-white transform -rotate-12"></i>
-                    </div>
-
-                    <div className="relative z-10">
-                        <i className="fas fa-envelope text-4xl text-rivals-red mb-4"></i>
-                        <h3 className="font-anton text-2xl text-white italic mb-2">CORREO DIRECTO</h3>
-                        <p className="font-montserrat text-gray-400 text-sm mb-6">
-                            Para consultas comerciales, patrocinios o reportes graves de conducta. Respondemos en 24-48hs.
-                        </p>
-                        <div className="bg-black/50 border border-gray-700 p-3 text-center">
-                            <span className="font-mono text-white text-sm">contact@symbiosix.gg</span>
-                        </div>
-                    </div>
-                </div>
+              </div>
             </div>
-            
-            {/* Social Row */}
-            <div className="flex justify-center gap-6 mt-12">
-                 {['twitter', 'instagram', 'youtube', 'tiktok'].map(social => (
-                     <a key={social} href="#" className="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center text-gray-400 hover:bg-rivals-red hover:text-white transition-all duration-300">
-                         <i className={`fab fa-${social}`}></i>
-                     </a>
-                 ))}
-            </div>
+          </div>
+
+          
         </div>
 
       </div>

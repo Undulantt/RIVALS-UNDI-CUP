@@ -50,7 +50,7 @@ const HomePage: React.FC = () => {
             {/* Header Title */}
             <div className="text-center md:text-left">
               <h2 className="text-4xl md:text-6xl font-anton uppercase italic text-white tracking-wide">
-                PRIZE <span className="inline-block text-rivals-red py-2 pr-12 -mr-8">POOL</span>
+                PREMIOS DEL <span className="inline-block text-rivals-red py-2 pr-12 -mr-8">TORNEO</span>
               </h2>
               <p className="font-orbitron text-gray-400 tracking-widest text-sm mt-2">RECOMPENSAS DE TEMPORADA</p>
             </div>
@@ -62,8 +62,8 @@ const HomePage: React.FC = () => {
               <div className="w-40 md:w-48 h-40 bg-gray-900/80 border border-gray-700 transform -skew-x-12 flex flex-col items-center justify-center group hover:border-rivals-silver transition-colors">
                  <div className="transform skew-x-12 flex flex-col items-center">
                     <i className="fas fa-medal text-4xl text-gray-400 mb-2 drop-shadow-lg"></i>
-                    <span className="font-anton text-xl text-gray-300 pr-8 -mr-4">2ND PLACE</span>
-                    <span className="font-orbitron text-sm text-gray-500">Skin Épica</span>
+                    <span className="font-anton text-xl text-gray-300 pr-8 -mr-4">2DO LUGAR</span>
+                    <span className="font-orbitron text-sm text-gray-500">UNIDADES</span>
                  </div>
               </div>
 
@@ -72,8 +72,8 @@ const HomePage: React.FC = () => {
                  <div className="absolute inset-0 bg-rivals-red/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
                  <div className="transform skew-x-12 flex flex-col items-center relative z-10">
                     <i className="fas fa-trophy text-5xl text-rivals-red group-hover:text-white transition-colors mb-2 drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]"></i>
-                    <span className="font-anton text-3xl text-white italic pr-8 -mr-4">WINNER</span>
-                    <span className="font-orbitron text-sm font-bold text-rivals-red group-hover:text-white">BATTLE PASS + VIP</span>
+                    <span className="font-anton text-3xl text-white italic pr-8 -mr-4">CAMPEONES</span>
+                    <span className="font-orbitron text-sm font-bold text-rivals-red group-hover:text-white">EFECTIVO</span>
                  </div>
               </div>
 
@@ -81,8 +81,8 @@ const HomePage: React.FC = () => {
                <div className="w-40 md:w-48 h-40 bg-gray-900/80 border border-gray-700 transform -skew-x-12 flex flex-col items-center justify-center group hover:border-rivals-silver transition-colors">
                  <div className="transform skew-x-12 flex flex-col items-center">
                     <i className="fas fa-medal text-4xl text-yellow-800 mb-2 drop-shadow-lg"></i>
-                    <span className="font-anton text-xl text-yellow-700 pr-8 -mr-4">3RD PLACE</span>
-                    <span className="font-orbitron text-sm text-gray-500">Cosméticos</span>
+                    <span className="font-anton text-xl text-yellow-700 pr-8 -mr-4">3ER LUGAR</span>
+                    <span className="font-orbitron text-sm text-gray-500">UNIDADES</span>
                  </div>
               </div>
 
@@ -191,7 +191,7 @@ const HomePage: React.FC = () => {
                   </div>
                   
                   <p className="font-montserrat text-gray-400 text-lg leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                      Somos un colectivo de jugadores competitivos de Marvel Rivals. Organizamos la <strong>U.N.D.I. CUP</strong> por amor puro a la comunidad, con el objetivo de elevar el nivel de la región y descubrir nuevos talentos. Sin lucro, solo gloria.
+                      Somos un colectivo de jugadores competitivos de Marvel Rivals. Organizamos la <strong>U.N.D.I. CUP</strong> por amor puro a la comunidad, con el objetivo de elevar el nivel de la región y descubrir nuevos talentos.
                   </p>
 
                   {/* 3 Pillars */}

@@ -40,24 +40,18 @@ const Navbar: React.FC = () => {
       {/* LEFT: LOGO */}
       <div className="h-full bg-black pl-6 pr-8 flex items-center relative z-20 min-w-fit">
         <Link to="/" className="group flex items-center gap-3">
-          {/* Logo Imagen (Reemplaza al icono) */}
           <img 
             src="https://i.postimg.cc/9QxV1Tt9/Simbioxis.png" 
             alt="SymbioSix Logo" 
             className="h-12 w-auto object-contain transform -skew-x-12 drop-shadow-[0_0_5px_rgba(230,36,41,0.5)] transition-transform duration-300 group-hover:scale-110"
           />
-          
-          {/* Logo Estilizado Texto - Actualizado a SymbioSix / U.N.D.I. CUP */}
           <div className="flex flex-col leading-none transform -skew-x-12">
             <span className="font-orbitron font-black text-2xl tracking-tighter text-white py-1 pr-1">
               SYMBIOSIX
             </span>
-            <span className="font-anton text-2X1 text-rivals-red tracking-widest uppercase">
-              U.N.D.I. CUP
-            </span>
           </div>
         </Link>
-        
+
         {/* Separator Line */}
         <div className="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 w-[1px] h-8 bg-gray-700 transform rotate-12"></div>
       </div>
@@ -77,7 +71,7 @@ const Navbar: React.FC = () => {
             >
               {link.name}
             </Link>
-            
+
             {/* Hover/Active Effect: Red bottom bar with skew */}
             <div className={`
               absolute bottom-0 left-0 w-full h-[4px] bg-rivals-red transform -skew-x-12 origin-bottom
@@ -95,31 +89,30 @@ const Navbar: React.FC = () => {
 
       {/* RIGHT: UTILS & CTA */}
       <div className="ml-auto h-full flex items-center">
-        
-        {/* GIANT RED BUTTON (Parallelogram Style) */}
-        <a 
-          href="https://discord.gg/HdBZGKHZ7J" // Direct to Discord or Register Form
-          target="_blank"
-          rel="noopener noreferrer"
-          className="relative h-full bg-rivals-red flex items-center px-8 md:px-10 group overflow-hidden min-w-[180px] justify-center text-center transition-colors duration-300 hover:bg-white"
-          style={{ clipPath: "polygon(20px 0, 100% 0, 100% 100%, 0% 100%)" }}
-        >
-          {/* Overlay effect */}
-          <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-5 transition-opacity duration-300"></div>
-          
-          {/* Added pr-1 to prevent text slicing */}
-          <span className="font-anton text-xl md:text-2xl uppercase tracking-wide text-white group-hover:text-rivals-red italic relative z-10 whitespace-nowrap transition-colors duration-300 pr-1">
-            INSCRIBIRSE
-          </span>
-        </a>
 
-        {/* Mobile Toggle (Inside the black area, left of button) */}
+        {/* Mobile Toggle — visible solo en móvil, ANTES del botón INSCRIBIRSE */}
         <button 
-          className="lg:hidden absolute right-[180px] md:right-[200px] text-white text-2xl focus:outline-none"
+          className="lg:hidden text-white text-2xl focus:outline-none px-5"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           <i className={`fas ${isMobileMenuOpen ? 'fa-times' : 'fa-bars'}`}></i>
         </button>
+
+        {/* GIANT RED BUTTON — oculto en móvil para no tapar el hamburger */}
+        <a 
+          href="https://docs.google.com/forms/d/e/1FAIpQLSfXJHoNVXVrE_R4C-cT4qYFC4mACrINLmjXeYgSkku_7_rDqQ/viewform"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hidden lg:flex relative h-full bg-rivals-red items-center px-8 md:px-10 group overflow-hidden min-w-[180px] justify-center text-center transition-colors duration-300 hover:bg-white"
+          style={{ clipPath: "polygon(20px 0, 100% 0, 100% 100%, 0% 100%)" }}
+        >
+          {/* Overlay effect */}
+          <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-5 transition-opacity duration-300"></div>
+
+          <span className="font-anton text-xl md:text-2xl uppercase tracking-wide text-white group-hover:text-rivals-red italic relative z-10 whitespace-nowrap transition-colors duration-300 pr-1">
+            INSCRIBIRSE
+          </span>
+        </a>
       </div>
 
       {/* MOBILE MENU OVERLAY */}
@@ -135,6 +128,17 @@ const Navbar: React.FC = () => {
               {link.name}
             </Link>
           ))}
+
+          {/* INSCRIBIRSE también disponible en el menú móvil */}
+          <a
+            href="https://docs.google.com/forms/d/e/1FAIpQLSfXJHoNVXVrE_R4C-cT4qYFC4mACrINLmjXeYgSkku_7_rDqQ/viewform"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-2 bg-rivals-red px-10 py-3 font-anton text-2xl uppercase italic tracking-widest text-white hover:bg-white hover:text-rivals-red transition-colors duration-300"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            INSCRIBIRSE
+          </a>
         </div>
       </div>
     </nav>

@@ -61,7 +61,7 @@ const BracketPage: React.FC = () => {
             {/* Challonge Iframe */}
             {/* Note: Using /module endpoint usually removes the Challonge header/footer for cleaner embedding */}
             <iframe
-                src="https://challonge.com/es/3d3x275w/module"
+                src="https://challonge.com/es/ah2uokt8/module"
                 title="Torneo U.N.D.I. CUP Bracket"
                 width="100%"
                 height="100%"
@@ -83,7 +83,7 @@ const BracketPage: React.FC = () => {
       <div className="relative z-10 text-center">
           <p className="font-montserrat text-gray-500 text-sm mb-6">¿Problemas visualizando el cuadro?</p>
           <Button
-            href="https://challonge.com/es/3d3x275w"
+            href="https://challonge.com/es/ah2uokt8"
             target="_blank"
             variant="outline"
             icon="fas fa-external-link-alt"
