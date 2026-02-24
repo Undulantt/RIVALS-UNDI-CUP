@@ -9,6 +9,7 @@ import InformacionPage from './pages/InformacionPage';
 import EquiposPage from './pages/EquiposPage';
 import BracketPage from './pages/BracketPage';
 import ContactoPage from './pages/ContactoPage';
+import Agenda from './pages/Agenda';
 
 const App: React.FC = () => {
   return (
@@ -23,6 +24,7 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/informacion" element={<InformacionPage />} />
+            <Route path="/agenda" element={<Agenda />} />
             <Route path="/equipos" element={<EquiposPage />} />
             <Route path="/bracket" element={<BracketPage />} />
             <Route path="/contacto" element={<ContactoPage />} />
