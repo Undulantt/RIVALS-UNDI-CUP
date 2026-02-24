@@ -10,6 +10,7 @@ import EquiposPage from './pages/EquiposPage';
 import BracketPage from './pages/BracketPage';
 import ContactoPage from './pages/ContactoPage';
 import Agenda from './pages/Agenda';
+import Draft from './pages/Draft';
 
 const App: React.FC = () => {
   return (
@@ -25,6 +26,7 @@ const App: React.FC = () => {
             <Route path="/" element={<HomePage />} />
             <Route path="/informacion" element={<InformacionPage />} />
             <Route path="/agenda" element={<Agenda />} />
+            <Route path="/draft" element={<Draft />} />
             <Route path="/equipos" element={<EquiposPage />} />
             <Route path="/bracket" element={<BracketPage />} />
             <Route path="/contacto" element={<ContactoPage />} />
