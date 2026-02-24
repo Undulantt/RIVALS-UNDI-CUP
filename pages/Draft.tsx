@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import Papa from 'papaparse';
+import Papa, { ParseResult, ParseError } from 'papaparse';
 
 interface Player {
   Nombre: string;
@@ -38,11 +38,11 @@ const Draft: React.FC = () => {
       Papa.parse(csvUrl, {
         download: true,
         header: true,
-        complete: (results) => {
+        complete: (results: ParseResult<Player>) => {
           setPlayers(results.data as Player[]);
           setLoading(false);
         },
-        error: (error) => {
+        error: (error: ParseError) => {
           console.error('Error fetching sheets:', error);
           setLoading(false);
         }
@@ -109,11 +109,11 @@ const Draft: React.FC = () => {
         <div className="max-w-md w-full bg-rivals-black border-2 border-rivals-red p-8 relative shadow-neon-red">
           <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-rivals-red"></div>
           <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-rivals-red"></div>
-          
+
           <h2 className="text-2xl font-black text-white italic mb-6 border-b border-rivals-red/30 pb-2 tracking-widest">
             RESTRICTED // DRAFT ACCESS
           </h2>
-          
+
           <form onSubmit={handleLogin} className="space-y-6">
             <div>
               <label className="block text-[10px] text-rivals-red font-bold tracking-[0.3em] mb-2 uppercase">
@@ -127,7 +127,7 @@ const Draft: React.FC = () => {
                 placeholder="********"
               />
             </div>
-            
+
             {authError && (
               <p className="text-rivals-red text-[10px] font-bold animate-pulse uppercase tracking-widest">
                 [ERROR] INVALID CREDENTIALS. ACCESS DENIED.
@@ -240,9 +240,8 @@ const Draft: React.FC = () => {
           <div className="grid grid-cols-4 gap-4 pb-4">
             {teams.map((team) => (
               <div key={team.id} className="bg-rivals-black border border-white/10 relative group">
-                {/* HUD Corner Detail */}
                 <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-rivals-red"></div>
-                
+
                 <div className="p-3 border-b border-white/10 flex justify-between items-center bg-white/5">
                   <h4 className="font-orbitron font-black text-xs text-white tracking-widest italic uppercase">
                     {team.captainName}
