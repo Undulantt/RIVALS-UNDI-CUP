@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import Papa, { ParseResult, ParseError } from 'papaparse';
+import Papa, { ParseResult } from 'papaparse';
 
 interface Player {
   Nombre: string;
@@ -42,7 +42,7 @@ const Draft: React.FC = () => {
           setPlayers(results.data as Player[]);
           setLoading(false);
         },
-        error: (error: ParseError) => {
+        error: (error: Error) => {
           console.error('Error fetching sheets:', error);
           setLoading(false);
         }
