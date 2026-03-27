@@ -19,6 +19,7 @@ interface Caster {
     tiktok?: string;
     twitter?: string;
     youtube?: string;
+    linktree?: string;
   };
 }
 
@@ -57,11 +58,12 @@ const casters: Caster[] = [
     name: 'Katilamon',
     shortName: 'Katilamon',
     role: 'CASTER',
-    avatar: 'https://static-cdn.jtvnw.net/user-default-pictures-uv/ebe4cd89-b4f4-4cd9-adac-2f30151b4209-profile_image-70x70.png',
+    avatar: 'https://static-cdn.jtvnw.net/jtv_user_pictures/dc0201c5-310f-42d9-b144-3140fe3266be-profile_image-70x70.jpeg',
     youtubeShortId: 'dQw4w9WgXcQ',
     bio: 'Caster oficial del torneo SIMBIOXIS U.N.D.I. CUP. Trayendo el mejor análisis y energía a cada partida del Main Event.',
     socials: {
       twitch: 'Katilamon',
+      linktree: 'katilamon',
     }
   },
   {
@@ -69,9 +71,9 @@ const casters: Caster[] = [
     name: 'awa_jellyvt',
     shortName: 'AWA',
     role: 'CASTER',
-    avatar: 'https://static-cdn.jtvnw.net/user-default-pictures-uv/ebe4cd89-b4f4-4cd9-adac-2f30151b4209-profile_image-70x70.png',
+    avatar: 'https://static-cdn.jtvnw.net/jtv_user_pictures/a5914e6f-3b93-4c4d-8241-d77d37d11b76-profile_image-70x70.jpeg',
     youtubeShortId: 'dQw4w9WgXcQ',
-    bio: 'Caster oficial del torneo SIMBIOXIS U.N.D.I. CUP. Llenando cada jugada de emoción y comentarios que te mantienen al borde del asiento.',
+    bio: 'Una vtuber muy acuosa que le gustan los videojuegos y el chisme 🪼// Caster de Esports// Bienvenidos! °^°',
     socials: {
       twitch: 'awa_jellyvt',
     }
@@ -81,7 +83,7 @@ const casters: Caster[] = [
     name: 'Wings667',
     shortName: 'Wings',
     role: 'PROMOTOR // AFILIADO OFICIAL',
-    avatar: 'https://static-cdn.jtvnw.net/jtv_user_pictures/e08724a9-76dc-4564-8116-93a21ab7d88f-profile_image-70x70.png',
+    avatar: 'https://static-cdn.jtvnw.net/jtv_user_pictures/937c7c18-ab46-415a-aafb-88ccaa9533aa-profile_image-70x70.png',
     youtubeShortId: 'dQw4w9WgXcQ',
     bio: 'Amante de los Videojuegos y obsesionado con Marvel Rivals! :D El afiliado y promotor oficial de SIMBIOXIS — el que lleva la bandera del torneo más allá del escenario.',
     isSpecial: true,
@@ -106,6 +108,7 @@ const ContactoPage: React.FC = () => {
     tiktok:    { icon: 'fab fa-tiktok',    color: 'hover:text-white',     base: 'https://tiktok.com/@' },
     twitter:   { icon: 'fab fa-twitter',   color: 'hover:text-[#1DA1F2]', base: 'https://twitter.com/' },
     youtube:   { icon: 'fab fa-youtube',   color: 'hover:text-[#FF0000]', base: 'https://youtube.com/@' },
+    linktree:  { icon: 'fas fa-seedling',  color: 'hover:text-[#43E660]', base: 'https://linktr.ee/' },
   };
 
   return (
