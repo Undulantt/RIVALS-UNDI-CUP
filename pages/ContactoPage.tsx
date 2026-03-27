@@ -60,7 +60,7 @@ const casters: Caster[] = [
     role: 'CASTER',
     avatar: 'https://static-cdn.jtvnw.net/jtv_user_pictures/dc0201c5-310f-42d9-b144-3140fe3266be-profile_image-70x70.jpeg',
     youtubeShortId: 'dQw4w9WgXcQ',
-    bio: 'Caster oficial del torneo SIMBIOXIS U.N.D.I. CUP. Trayendo el mejor análisis y energía a cada partida del Main Event.',
+    bio: 'Vtuber independiente - Dragona de la luna🐉🌙💜: Hola chicos y chicas del universo habido y por haber soy Katilamon, espero se la pasen bien y me sigan para mas contenido',
     socials: {
       twitch: 'Katilamon',
       instagram: 'katilam0n',

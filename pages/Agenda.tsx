@@ -28,8 +28,10 @@ const AgendaPage: React.FC = () => {
     if (t.includes('PUGS') || t.includes('PUG'))                 return '#F97316';
     if (t.includes('TORNEO'))                                     return '#E62429';
     if (t.includes('NICHAY'))                                     return '#9333EA';
-    if (t.includes('WINGS'))                                      return '#16A34A';
+    if (t.includes('WINGS'))                                      return '#FACC15';
     if (t.includes('JAZMIN') || t.includes('JAZMÍN'))            return '#EC4899';
+    if (t.includes('KATILAMON'))                                  return '#22C55E';
+    if (t.includes('AWA'))                                        return '#7DD3FC';
     return '#6B7280';
   };
 
@@ -41,8 +43,10 @@ const AgendaPage: React.FC = () => {
     if (t.includes('PUGS') || t.includes('PUG'))                 return '0 0 8px #F97316, 0 0 18px #F9731666';
     if (t.includes('TORNEO'))                                     return '0 0 8px #E62429, 0 0 18px #E6242966';
     if (t.includes('NICHAY'))                                     return '0 0 8px #9333EA, 0 0 18px #9333EA66';
-    if (t.includes('WINGS'))                                      return '0 0 8px #16A34A, 0 0 18px #16A34A66';
+    if (t.includes('WINGS'))                                      return '0 0 8px #FACC15, 0 0 18px #FACC1566';
     if (t.includes('JAZMIN') || t.includes('JAZMÍN'))            return '0 0 8px #EC4899, 0 0 18px #EC489966';
+    if (t.includes('KATILAMON'))                                  return '0 0 8px #22C55E, 0 0 18px #22C55E66';
+    if (t.includes('AWA'))                                        return '0 0 8px #7DD3FC, 0 0 18px #7DD3FC66';
     return '0 0 6px #6B728066';
   };
 
@@ -270,7 +274,6 @@ const AgendaPage: React.FC = () => {
                 { label: 'PUGS',          color: '#F97316' },
                 { label: 'TORNEO',        color: '#E62429' },
                 { label: 'NICHAY',        color: '#9333EA' },
-                { label: 'WINGS',         color: '#FACC15' },
                 { label: 'JAZMIN',        color: '#EC4899' },
                 { label: 'KATILAMON',     color: '#22C55E' },
                 { label: 'AWA',           color: '#7DD3FC' },
