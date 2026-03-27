@@ -72,6 +72,10 @@ const AgendaPage: React.FC = () => {
   };
 
   const handleEventClick = (info: any) => {
+    // Evita que el plugin de Google Calendar redirija al calendario
+    info.jsEvent.preventDefault();
+    info.jsEvent.stopPropagation();
+
     setSelectedEvent({
       title: info.event.title,
       start: info.event.startStr,
@@ -86,10 +90,31 @@ const AgendaPage: React.FC = () => {
 
   const parseDescription = (description: string | undefined) => {
     if (!description) return { text: '', twitchUrl: null };
-    const twitchRegex = /(https?:\/\/(www\.)?twitch\.tv\/[a-zA-Z0-9_]+)/g;
-    const match = description.match(twitchRegex);
-    const twitchUrl = match ? match[0] : null;
-    const text = description.replace(twitchRegex, '').trim();
+
+    let twitchUrl: string | null = null;
+    let text = description;
+
+    // 1. Detectar links HTML: <a href="...twitch.tv/...">...</a>
+    const htmlLinkRegex = /<a\s[^>]*href=["']?(https?:\/\/(www\.)?twitch\.tv\/[a-zA-Z0-9_]+)["']?[^>]*>.*?<\/a>/gi;
+    const htmlMatch = htmlLinkRegex.exec(description);
+    if (htmlMatch) {
+      twitchUrl = htmlMatch[1];
+      text = text.replace(htmlMatch[0], '').trim();
+    }
+
+    // 2. Detectar URLs planas de Twitch (si no se encontró en HTML)
+    if (!twitchUrl) {
+      const plainRegex = /(https?:\/\/(www\.)?twitch\.tv\/[a-zA-Z0-9_]+)/g;
+      const plainMatch = description.match(plainRegex);
+      if (plainMatch) {
+        twitchUrl = plainMatch[0];
+        text = text.replace(plainMatch[0], '').trim();
+      }
+    }
+
+    // 3. Limpiar cualquier tag HTML restante en la descripción visible
+    text = text.replace(/<[^>]*>/g, '').trim();
+
     return { text, twitchUrl };
   };
 
@@ -230,6 +255,7 @@ const AgendaPage: React.FC = () => {
               listMonth:    { buttonText: 'List'  }
             }}
             eventClick={handleEventClick}
+            eventInteractive={true}
             eventDidMount={handleEventDidMount}
             displayEventTime={false}
             height="auto"

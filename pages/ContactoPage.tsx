@@ -10,8 +10,9 @@ interface Caster {
   shortName: string;
   role: string;
   avatar: string;
-  youtubeShortId: string; // ID del YouTube Short (parte después de /shorts/)
+  youtubeShortId: string;
   bio: string;
+  isSpecial?: boolean;
   socials: {
     twitch?: string;
     instagram?: string;
@@ -28,7 +29,7 @@ const casters: Caster[] = [
     shortName: 'Nichay',
     role: 'CASTER // HOST',
     avatar: 'https://static-cdn.jtvnw.net/jtv_user_pictures/3a77f817-7eb9-4cd7-8790-9d92afeaa24a-profile_image-70x70.png',
-    youtubeShortId: 'dQw4w9WgXcQ', // Reemplazar con el ID real del Short
+    youtubeShortId: 'dQw4w9WgXcQ',
     bio: 'Soy una Demonia que se aburrio del inframundo y dejo el caos para venir a jugar videojuegos. Traviesa, juguetona, loquita, enojona, intensa y divertida, mezcla la picardía y energía para convertir cada partida en un espectáculo diabólicamente encantador.',
     socials: {
       twitch: 'Nichays',
@@ -38,25 +39,11 @@ const casters: Caster[] = [
   },
   {
     id: '2',
-    name: 'Wings667',
-    shortName: 'Wings',
-    role: 'CASTER // AFILIADO OFICIAL',
-    avatar: 'https://static-cdn.jtvnw.net/jtv_user_pictures/e08724a9-76dc-4564-8116-93a21ab7d88f-profile_image-70x70.png',
-    youtubeShortId: 'dQw4w9WgXcQ', // Reemplazar con el ID real del Short
-    bio: 'Amante de los Videojuegos y obsesionado con Marvel Rivals! :D',
-    socials: {
-      twitch: 'Wings667',
-      instagram: 'elwings667',
-      tiktok: 'wings667_',
-    }
-  },
-  {
-    id: '3',
     name: 'JazminVT',
     shortName: 'JazminVT',
     role: 'CASTER // HOST',
     avatar: 'https://static-cdn.jtvnw.net/jtv_user_pictures/7f9e1ebb-65d3-4745-860a-b2c6b9b85b55-profile_image-70x70.png',
-    youtubeShortId: 'dQw4w9WgXcQ', // Reemplazar con el ID real del Short
+    youtubeShortId: 'dQw4w9WgXcQ',
     bio: '💀 Vtuber con esencia, papeadora y decadente💜 Twitch Partner👻 Amodoro mi fantasmitas🌙 Creadora de contenido 🖌️Artista: @YukimiiArt & Rigger: @Yi_Star_',
     socials: {
       twitch: 'JazminVT',
@@ -66,20 +53,44 @@ const casters: Caster[] = [
     }
   },
   {
-    id: '4',
-    name: 'SYMBIO',
-    shortName: 'SYMBIO',
-    role: 'CANAL OFICIAL // MULTI-STREAM',
-    avatar: 'https://i.postimg.cc/9QxV1Tt9/Simbioxis.png',
-    youtubeShortId: 'dQw4w9WgXcQ', // Reemplazar con el ID real del Short
-    bio: 'Canal oficial de la organización. Transmisión tipo Red Zone saltando entre las partidas más interesantes del momento.',
+    id: '3',
+    name: 'Katilamon',
+    shortName: 'Katilamon',
+    role: 'CASTER',
+    avatar: 'https://static-cdn.jtvnw.net/user-default-pictures-uv/ebe4cd89-b4f4-4cd9-adac-2f30151b4209-profile_image-70x70.png',
+    youtubeShortId: 'dQw4w9WgXcQ',
+    bio: 'Caster oficial del torneo SIMBIOXIS U.N.D.I. CUP. Trayendo el mejor análisis y energía a cada partida del Main Event.',
     socials: {
-      twitch: 'symbiosix',
-      instagram: 'symbiosix',
-      tiktok: 'symbiosix',
-      youtube: 'symbiosix',
+      twitch: 'Katilamon',
     }
-  }
+  },
+  {
+    id: '4',
+    name: 'awa_jellyvt',
+    shortName: 'AWA',
+    role: 'CASTER',
+    avatar: 'https://static-cdn.jtvnw.net/user-default-pictures-uv/ebe4cd89-b4f4-4cd9-adac-2f30151b4209-profile_image-70x70.png',
+    youtubeShortId: 'dQw4w9WgXcQ',
+    bio: 'Caster oficial del torneo SIMBIOXIS U.N.D.I. CUP. Llenando cada jugada de emoción y comentarios que te mantienen al borde del asiento.',
+    socials: {
+      twitch: 'awa_jellyvt',
+    }
+  },
+  {
+    id: '5',
+    name: 'Wings667',
+    shortName: 'Wings',
+    role: 'PROMOTOR // AFILIADO OFICIAL',
+    avatar: 'https://static-cdn.jtvnw.net/jtv_user_pictures/e08724a9-76dc-4564-8116-93a21ab7d88f-profile_image-70x70.png',
+    youtubeShortId: 'dQw4w9WgXcQ',
+    bio: 'Amante de los Videojuegos y obsesionado con Marvel Rivals! :D El afiliado y promotor oficial de SIMBIOXIS — el que lleva la bandera del torneo más allá del escenario.',
+    isSpecial: true,
+    socials: {
+      twitch: 'Wings667',
+      instagram: 'elwings667',
+      tiktok: 'wings667_',
+    }
+  },
 ];
 
 // ==========================================
@@ -173,16 +184,25 @@ const ContactoPage: React.FC = () => {
 
               {/* Nombre */}
               <div>
+                {activeCaster.isSpecial && (
+                  <div className="flex items-center gap-2 mb-3">
+                    <i className="fas fa-star text-yellow-400 text-xs drop-shadow-[0_0_6px_rgba(250,204,21,0.8)]"></i>
+                    <span className="font-orbitron text-[9px] font-black tracking-[0.4em] uppercase text-yellow-400/80">
+                      PROMOTOR &amp; AFILIADO OFICIAL
+                    </span>
+                    <i className="fas fa-star text-yellow-400 text-xs drop-shadow-[0_0_6px_rgba(250,204,21,0.8)]"></i>
+                  </div>
+                )}
                 <h2 className="font-anton text-5xl md:text-6xl text-white uppercase italic leading-none mb-2">
                   {activeCaster.name}
                 </h2>
-                <span className="font-orbitron text-rivals-red text-sm font-bold tracking-[0.25em] uppercase">
+                <span className={`font-orbitron text-sm font-bold tracking-[0.25em] uppercase ${activeCaster.isSpecial ? 'text-yellow-400' : 'text-rivals-red'}`}>
                   {activeCaster.role}
                 </span>
               </div>
 
               {/* Bio */}
-              <div className="border-l-4 border-rivals-red bg-zinc-900/50 px-5 py-4 backdrop-blur-sm">
+              <div className={`border-l-4 bg-zinc-900/50 px-5 py-4 backdrop-blur-sm ${activeCaster.isSpecial ? 'border-yellow-400' : 'border-rivals-red'}`}>
                 <p className="font-montserrat text-gray-300 text-base leading-relaxed">
                   {activeCaster.bio}
                 </p>
@@ -210,9 +230,56 @@ const ContactoPage: React.FC = () => {
           </div>
 
           {/* ---- SELECTOR DE CASTERS ---- */}
-          <div className="flex justify-center gap-4 flex-wrap">
+          <div className="flex justify-center gap-4 flex-wrap items-end">
             {casters.map((caster) => {
               const isActive = activeCaster.id === caster.id;
+              if (caster.isSpecial) {
+                return (
+                  <button
+                    key={caster.id}
+                    onClick={() => setActiveCaster(caster)}
+                    className={`
+                      relative flex flex-col items-center gap-2 p-1 transition-all duration-300 group
+                      ${isActive ? 'scale-110' : 'opacity-70 hover:opacity-100 hover:scale-105'}
+                    `}
+                  >
+                    {/* Special crown/star badge */}
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-10">
+                      <i className="fas fa-star text-yellow-400 text-xs drop-shadow-[0_0_6px_rgba(250,204,21,0.8)]"></i>
+                    </div>
+
+                    {/* Avatar with gold border */}
+                    <div className={`
+                      w-20 h-20 overflow-hidden border-2 transition-all duration-300
+                      ${isActive
+                        ? 'border-yellow-400 shadow-[0_0_12px_rgba(250,204,21,0.5)]'
+                        : 'border-yellow-600/60 group-hover:border-yellow-400 group-hover:shadow-[0_0_8px_rgba(250,204,21,0.3)]'}
+                    `}>
+                      <img
+                        src={caster.avatar}
+                        alt={caster.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+
+                    {/* Nombre corto */}
+                    <span className={`font-orbitron text-[10px] uppercase tracking-wider transition-colors ${isActive ? 'text-yellow-400' : 'text-yellow-600 group-hover:text-yellow-400'}`}>
+                      {caster.shortName}
+                    </span>
+
+                    {/* Special label */}
+                    <span className="font-orbitron text-[8px] uppercase tracking-wider text-yellow-500/60 -mt-1">
+                      PROMOTOR
+                    </span>
+
+                    {/* Active indicator */}
+                    {isActive && (
+                      <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-4 h-0.5 bg-yellow-400 shadow-[0_0_6px_rgba(250,204,21,0.8)]"></div>
+                    )}
+                  </button>
+                );
+              }
+
               return (
                 <button
                   key={caster.id}
