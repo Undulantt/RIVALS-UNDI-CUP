@@ -63,6 +63,9 @@ const casters: Caster[] = [
     bio: 'Caster oficial del torneo SIMBIOXIS U.N.D.I. CUP. Trayendo el mejor análisis y energía a cada partida del Main Event.',
     socials: {
       twitch: 'Katilamon',
+      instagram: 'katilam0n',
+      tiktok:'katilamon',
+      twitter: 'katilam0n',
       linktree: 'katilamon',
     }
   },
@@ -76,6 +79,8 @@ const casters: Caster[] = [
     bio: 'Una vtuber muy acuosa que le gustan los videojuegos y el chisme 🪼// Caster de Esports// Bienvenidos! °^°',
     socials: {
       twitch: 'awa_jellyvt',
+      tiktok: 'awa_jelly',
+      twitter: 'awajellyvt',
     }
   },
   {
