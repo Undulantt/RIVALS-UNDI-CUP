@@ -102,13 +102,21 @@ const casters: Caster[] = [
 const ContactoPage: React.FC = () => {
   const [activeCaster, setActiveCaster] = useState<Caster>(casters[0]);
 
-  const socialIcons: Record<string, { icon: string; color: string; base: string }> = {
+  const socialIcons: Record<string, { icon?: string; svg?: React.ReactNode; color: string; base: string }> = {
     twitch:    { icon: 'fab fa-twitch',    color: 'hover:text-[#9146FF]', base: 'https://twitch.tv/' },
     instagram: { icon: 'fab fa-instagram', color: 'hover:text-[#E1306C]', base: 'https://instagram.com/' },
     tiktok:    { icon: 'fab fa-tiktok',    color: 'hover:text-white',     base: 'https://tiktok.com/@' },
     twitter:   { icon: 'fab fa-twitter',   color: 'hover:text-[#1DA1F2]', base: 'https://twitter.com/' },
     youtube:   { icon: 'fab fa-youtube',   color: 'hover:text-[#FF0000]', base: 'https://youtube.com/@' },
-    linktree:  { icon: 'fas fa-seedling',  color: 'hover:text-[#43E660]', base: 'https://linktr.ee/' },
+    linktree:  {
+      color: 'hover:text-[#43E660]',
+      base: 'https://linktr.ee/',
+      svg: (
+        <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+          <path d="M13.51 5.753l4.37-4.539 2.098 2.023-4.552 4.371h6.32v2.944h-6.354l4.553 4.37-2.098 2.024-4.837-4.686-4.837 4.686-2.099-2.024 4.553-4.37H4.253V7.608h6.32L6.02 3.237l2.099-2.023 4.37 4.539zm-1.51 8.88h2.944v8.622H12.01V14.633z"/>
+        </svg>
+      ),
+    },
   };
 
   return (
@@ -224,7 +232,7 @@ const ContactoPage: React.FC = () => {
                       rel="noopener noreferrer"
                       className={`w-11 h-11 rounded-full bg-zinc-800 border border-gray-700 flex items-center justify-center text-gray-400 ${social.color} hover:border-gray-500 hover:scale-110 transition-all duration-200`}
                     >
-                      <i className={`${social.icon} text-lg`}></i>
+                      {social.svg ? social.svg : <i className={`${social.icon} text-lg`}></i>}
                     </a>
                   );
                 })}
