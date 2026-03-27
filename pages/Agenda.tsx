@@ -270,8 +270,10 @@ const AgendaPage: React.FC = () => {
                 { label: 'PUGS',          color: '#F97316' },
                 { label: 'TORNEO',        color: '#E62429' },
                 { label: 'NICHAY',        color: '#9333EA' },
-                { label: 'WINGS',         color: '#16A34A' },
+                { label: 'WINGS',         color: '#FACC15' },
                 { label: 'JAZMIN',        color: '#EC4899' },
+                { label: 'KATILAMON',     color: '#22C55E' },
+                { label: 'AWA',           color: '#7DD3FC' },
               ].map((item) => (
                 <div key={item.label} className="flex items-center gap-2">
                   <span
